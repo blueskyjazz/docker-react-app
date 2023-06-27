@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+ - docker
+
+before_install:
+ - echo "start creating an image with dockerfile" 
+ - docker build -t blueskyjazz/docker-react-app -f Dockerfile.Dev .
+
+script:
+ - docker run -r CI=true blueskyjazz/docker-react-app npm run test -- --coverage
+
+after_success:
+ - echo "Test success"
